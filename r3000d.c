@@ -251,7 +251,7 @@ char* r3000d_disassemble(char* buf, uint32_t opcode, r3000d_state* state) {
         case 3:
             sprintf(ptr, "%-8s 0x%08x",
                 r3000_primary_table[op],
-                (state->addr & 0xf0000000) |
+                (state ? (state->addr & 0xf0000000) : 0) |
                 (IMM26 << 2)
             );
         break;
@@ -307,6 +307,9 @@ char* r3000d_disassemble(char* buf, uint32_t opcode, r3000d_state* state) {
         } break;
 
         /* To-do: case 18 (COP2, GTE) */
+        case 18:
+            sprintf(ptr, "<gte-unimplemented>");
+        break;
 
         case 32:
         case 33:
